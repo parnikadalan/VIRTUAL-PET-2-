@@ -21,7 +21,11 @@ function setup() {
 
   addFood = createButton("ADD FOOD");
   addFood.position(700, 30);
-  addFood.mousePressed(addFood);
+  addFood.mousePressed(function(){
+    db.ref ("/").update({
+      Food: foodS + 1, 
+    })
+  })
 
 foodStock = db.ref('Food');
 foodStock.on("value", readStock);
@@ -54,11 +58,5 @@ function feedDog(){
   foodObj.updateFoodStock(foodObj.getFoodStock()-1)
   db.ref('/').update({
     Food:foodObj.getFoodStock(), fedTime:hour()
-  })
-}
-function addFood(){
-  foodS++
-  db.ref('/').update({
-    Food:foodS
   })
 }
